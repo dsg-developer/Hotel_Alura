@@ -1,0 +1,50 @@
+Para extraer una entidad de un `ResultSet` en Java, necesitarás conocer los nombres y tipos de las columnas en la tabla de la base de datos²³. Aquí te dejo un ejemplo de cómo podrías hacerlo:
+
+```java
+private T extraerEntidadDesdeResultSet(ResultSet rs, Class<T> entidadClase) throws SQLException {
+    T entidad = null;
+
+    try {
+        // Crear una instancia de la entidad
+        entidad = entidadClase.getDeclaredConstructor().newInstance();
+
+        // Obtener metadatos del ResultSet
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int numeroColumnas = rsmd.getColumnCount();
+
+        // Recorrer cada columna
+        for (int i = 1; i <= numeroColumnas; i++) {
+            String nombreColumna = rsmd.getColumnName(i);
+            Object valorColumna = rs.getObject(i);
+
+            // Buscar el campo correspondiente en la entidad
+            Field campo = entidadClase.getDeclaredField(nombreColumna);
+            if (campo != null) {
+                campo.setAccessible(true);
+
+                // Asignar el valor de la columna al campo de la entidad
+                campo.set(entidad, valorColumna);
+            }
+        }
+    } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | NoSuchFieldException e) {
+        // Manejar excepciones
+    }
+
+    return entidad;
+}
+```
+
+En este código, el método `extraerEntidadDesdeResultSet` crea una nueva instancia de la entidad, obtiene los metadatos del `ResultSet`, recorre cada columna, busca el campo correspondiente en la entidad y asigna el valor de la columna al campo²³.
+
+Por favor ten en cuenta que este es solo un ejemplo y puede que necesites ajustarlo según tus necesidades específicas. ¡Espero que esto te sea de ayuda! 😊
+
+Origen: Conversación con Bing, 3/10/2023
+(1) . https://bing.com/search?q=logica+para+extraer+entidad+del+ResultSet+Java.
+(2) Recorrer objeto ResultSet basado en una clase compuesta. https://es.stackoverflow.com/questions/131560/recorrer-objeto-resultset-basado-en-una-clase-compuesta.
+(3) java - ¿Como paso el resultado de la query a una variable a mostrar .... https://es.stackoverflow.com/questions/307538/como-paso-el-resultado-de-la-query-a-una-variable-a-mostrar.
+(4) Resultset de una consulta en java - Stack Overflow en español. https://es.stackoverflow.com/questions/10831/resultset-de-una-consulta-en-java.
+(5) Metodo para extraer datos de un Set en Java. https://es.stackoverflow.com/questions/212672/metodo-para-extraer-datos-de-un-set-en-java.
+(6) undefined. https://www.discoduroderoer.es/como-recorrer-un-resultset-en-java/.
+(7) undefined. http://profesores.elo.utfsm.cl/~agv/elo330/2s03/projects/jdbc/jdbc-02.html.
+(8) undefined. https://www.adharatoledo.es/.
+(9) undefined. https://es.helpr.me/8679-how-do-i-see-code-coverage-in-intellij.
