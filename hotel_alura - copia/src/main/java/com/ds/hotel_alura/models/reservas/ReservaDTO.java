@@ -4,8 +4,12 @@ import jakarta.validation.constraints.NotNull;
 
 public record ReservaDTO(@NotNull long id, String fechaEntrada, String fechaSalida, int precio, String metodoDePago) {
 
-    public ReservaDTO(Reservas dto) {
-        this(dto.getId(), dto.getFecha_entrada(), dto.getFecha_salida(), dto.getPrecio(), 
-                dto.getForma_pago());
+    public ReservaDTO(Reservas entidad) {
+        this(entidad.getId(), entidad.getFecha_entrada(), entidad.getFecha_salida(), entidad.getPrecio(), 
+                entidad.getForma_pago());
     }
+    
+    public void setDTO(ReservaDTO dto){
+    }
+
 }

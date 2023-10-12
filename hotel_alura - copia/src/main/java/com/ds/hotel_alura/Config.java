@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Config {
     
@@ -16,11 +17,14 @@ public class Config {
         String pass = "MySQLS3rv3r";
         try {
             cn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/"+dbCasa,  
-                    user, pass
+                    "jdbc:mysql://localhost:3306/"+dbOficina,  
+                    user, ""
             );
         } catch (SQLException ex) {
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo realizar la conexión con la db"
+                    + "\nfavor de revisar el servidor con el que se intenta conectar", "Información de error",
+                    JOptionPane.ERROR_MESSAGE);
         }
         return cn;
     }

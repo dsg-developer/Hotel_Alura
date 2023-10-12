@@ -1,8 +1,6 @@
 package com.ds.hotel_alura.models.huesped;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import java.util.Date;
 
 public record HuespedDTO(
         @NotBlank long id, 
@@ -13,5 +11,13 @@ public record HuespedDTO(
         @NotBlank String telefono,
         @NotBlank long id_reserva
     ) {
-
+    public HuespedDTO(Huespedes entidad) {
+        this(entidad.getId(), entidad.getNombre(), entidad.getApellido(), 
+                entidad.getFecha_nacimiento(), entidad.getNacionalidad(),
+                entidad.getTelefono(),
+                entidad.getId_reserva());
+    }
+    
+    public void setDTO(HuespedDTO dto){
+    }
 }

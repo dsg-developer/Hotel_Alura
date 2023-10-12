@@ -1,17 +1,20 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
+
 package com.ds.hotel_alura;
 
 //import java.util.stream.Collectors;
+
 import com.ds.hotel_alura.views.MenuPrincipal;
 import java.awt.EventQueue;
 
 //import org.flywaydb.core.Flyway;
 //import org.flywaydb.core.api.Location;
+
 /**
  *
- * @author Work-Game
+ * @author Dionisio de los Santos Guzmán
  */
 public class Hotel_alura {
 
@@ -49,7 +52,7 @@ public class Hotel_alura {
             }
         });
     }
-
+    
 //    @Override
 //    public void run(String... args) throws Exception {
 //        String locations = Arrays.stream(flyway.getConfiguration().getLocations())

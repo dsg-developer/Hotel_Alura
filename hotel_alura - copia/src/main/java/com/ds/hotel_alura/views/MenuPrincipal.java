@@ -1,6 +1,6 @@
 package com.ds.hotel_alura.views;
 
-import java.awt.EventQueue;
+import com.ds.hotel_alura.controllers.LoginController;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -58,7 +58,7 @@ public class MenuPrincipal extends JFrame {
         panel_1.setLayout(null);
 
         JLabel lblCopyR = new JLabel("Desarrollado por Dionisio de los Santos © 2023");
-        lblCopyR.setBounds(315, 11, 338, 19);
+        lblCopyR.setBounds(262, 11, 342, 19);
         lblCopyR.setForeground(new Color(240, 248, 255));
         lblCopyR.setFont(new Font("Roboto", Font.PLAIN, 16));
         panel_1.add(lblCopyR);
@@ -121,7 +121,7 @@ public class MenuPrincipal extends JFrame {
         btnLogin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new Login().setVisible(true);
+                new LoginController().start();
                 dispose();
             }
         });

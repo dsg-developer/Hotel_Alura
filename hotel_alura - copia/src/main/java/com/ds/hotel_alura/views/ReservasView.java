@@ -1,8 +1,10 @@
 package com.ds.hotel_alura.views;
 
+import com.ds.hotel_alura.controllers.ReservasController;
 import com.ds.hotel_alura.models.CallBack;
 import com.ds.hotel_alura.models.reservas.ReservaDTO;
 import com.toedter.calendar.IDateEditor;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,9 +17,11 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.text.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -25,6 +29,7 @@ import java.awt.Toolkit;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -264,14 +269,13 @@ public class ReservasView extends JFrame {
                     if (dateEditor instanceof JTextFieldDateEditor) {
                         if (dia <= LocalDateTime.now().getDayOfMonth()
                                 && mes < LocalDateTime.now().getMonthValue()
+                                || mes < LocalDateTime.now().getMonthValue()
                                 || year < LocalDateTime.now().getYear()) {
                             edi = (JTextFieldDateEditor) dateEditor;
                             edi.setBackground(Color.red);
                             badDate[0] = true;
                         } else {
-                            if (edi != null) {
-                                edi.setBackground(null);
-                            }
+                            if (edi != null)  edi.setBackground(null);
                             badDate[0] = false;
                         }
                     }
@@ -307,22 +311,25 @@ public class ReservasView extends JFrame {
                     if (dateEditor instanceof JTextFieldDateEditor) {
                         if (dia <= LocalDateTime.now().getDayOfMonth()
                                 && mes < LocalDateTime.now().getMonthValue()
+                                || mes < LocalDateTime.now().getMonthValue()
                                 || year < LocalDateTime.now().getYear()) {
                             edi2 = (JTextFieldDateEditor) dateEditor;
                             edi2.setBackground(Color.red);
-                            System.err.println("mes: " + mes + " "
-                                    + LocalDateTime.now().getMonthValue());
+                            
                             badDate[1] = true;
                         } else {
-                            if (edi2 != null) {
-                                edi2.setBackground(null);
-                            }
+                            if (edi2 != null) edi2.setBackground(null);
                             badDate[1] = false;
                         }
                         if (!badDate[0] && !badDate[1]) {
                             Date d = txtFechaSalida.getDate();
                             LocalDate da = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                             calcularPrecio(dat, da);
+                        }else{
+                            JOptionPane.showMessageDialog(null, 
+                            "debe seleccionar un horario correcto"+
+                            "verifique si su seleccion no esta de color rojo",
+                            "Información", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
                 }
@@ -364,7 +371,7 @@ public class ReservasView extends JFrame {
                             sdf.format(txtFechaSalida.getDate()),
                             precio, txtFormaPago.getSelectedItem().toString()
                     );
-                    call.listener(rdto);
+                    call.listener(rdto, (byte) 0);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
@@ -403,14 +410,6 @@ public class ReservasView extends JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }
 
-    /*public ReservasDTO guardar(ReservasDTO dto){
-            //reservasController = new ReservasController();
-            return reservasController.add(dto).getBody();
-        }
-        public ReservasController guardar(){
-            //reservasController = new ReservasController();
-            return reservasController;
-        }*/
     public void setCallBack(CallBack call) {
         this.call = call;
     }
